@@ -1,0 +1,9 @@
+1. User can input value to a convert
+2. User can select the units to convert from and to
+3. User can view converted value
+4. User can convert between different units of measurement like length, weight, temperature, etc
+
+Length = mm,cm,m,km,inch,foot,yard,mile
+Weight = mg,g,kg,ounce, pound
+temperature = celcius, fahrenheit, Kelvin
+

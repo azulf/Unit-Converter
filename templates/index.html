@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Converter</h1>
+        <nav>
+            <a href="#" >Length</a>
+            <a href="#" >Weight</a>
+            <a href="#" >Temperature</a>
+        </nav>
+        <div class="content">
+            <form action="/Length" method="POST">
+                <label for="value">Enter the length to convert</label>
+                <input type="number" id="value" name="value" step="any" required>
+                <label for="unit_from">Unit to Convert from</label>
+                <select id="unit_from" name="unit_from" required>
+                    <option value="meter">Meter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="millimeter">Millimeter</option>
+                </select>
+                <label for="unit_to">Unit to Convert to</label>
+                <select id="unit_to" name="unit_to" required>
+                    <option value="meter">Meter</option>
+                    <option value="kilometer">Kilometer</option>
+                    <option value="centimeter">Centimeter</option>
+                    <option value="millimeter">Millimeter</option>
+                </select>
+                <button type="submit">Convert</button>
+            </form>
+            {% if result is not none %}
+                <div class="result">
+                    <h2>Result of your calculation</h2>
+                    <p>{{ value }} {{ unit_from }} = {{ result }} {{ unit_to }}</p>
+                    <a href="/" class="reset-button">Reset</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

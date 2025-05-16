@@ -10,11 +10,15 @@
     <div class="container">
         <h1>Unit Converter</h1>
         <nav>
-            <a href="#" >Length</a>
-            <a href="#" >Weight</a>
-            <a href="#" >Temperature</a>
+            <a href="/Length">Length</a>
+            <a href="/Weight">Weight</a>
+            <a href="/Temperature">Temperature</a>
         </nav>
+
+        <!-- Form Content -->
         <div class="content">
+            {% if active_form == 'Length' %}
+            <!-- LENGTH FORM -->
             <form action="/Length" method="POST">
                 <label for="value">Enter the length to convert</label>
                 <input type="number" id="value" name="value" step="any" required>
@@ -34,13 +38,70 @@
                 </select>
                 <button type="submit">Convert</button>
             </form>
-            {% if result is not none %}
-                <div class="result">
-                    <h2>Result of your calculation</h2>
-                    <p>{{ value }} {{ unit_from }} = {{ result }} {{ unit_to }}</p>
-                    <a href="/" class="reset-button">Reset</a>
-                </div>
+                {% if result is not none %}
+                    <div class="result">
+                        <h2>Result of your calculation</h2>
+                        <p>{{ value }} {{ unit_from }} = {{ result }} {{ unit_to }}</p>
+                        <a href="/" class="reset-button">Reset</a>
+                    </div>
+                {% endif %}
+            {% elif active_form == 'Weight' %}
+            <!-- WEIGHT FORM -->
+            <form action="/Weight" method="POST">
+                <label for="value">Enter the weight to convert</label>
+                <input type="number" id="value" name="value" step="any" required>
+                <label for="unit_from">Unit to Convert from</label>
+                <select id="unit_from" name="unit_from" required>
+                    <option value="gram">Gram</option>
+                    <option value="kilogram">Kilogram</option>
+                    <option value="pound">Pound</option>
+                    <option value="ounce">Ounce</option>
+                </select>
+                <label for="unit_to">Unit to Convert to</label>
+                <select id="unit_to" name="unit_to" required>
+                    <option value="gram">Gram</option>
+                    <option value="kilogram">Kilogram</option>
+                    <option value="pound">Pound</option>
+                    <option value="ounce">Ounce</option>
+                </select>
+                <button type="submit">Convert</button>
+            </form>
+                {% if result is not none %}
+                    <div class="result">
+                        <h2>Result of your calculation</h2>
+                        <p>{{ value }} {{ unit_from }} = {{ result }} {{ unit_to }}</p>
+                        <a href="/" class="reset-button">Reset</a>
+                    </div>
+                {% endif %}
+            {% elif active_form == 'Temperature' %}
+            <!-- TEMPERATURE FORM -->
+            <form action="/Temperature" method="POST">
+                <label for="value">Enter the temperature to convert</label>
+                <input type="number" id="value" name="value" step="any" required>
+                <label for="unit_from">Unit to Convert from</label>
+                <select id="unit_from" name="unit_from" required>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+                <label for="unit_to">Unit to Convert to</label>
+                <select id="unit_to" name="unit_to" required>
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+                <button type="submit">Convert</button>
+            </form>
+                {% if result is not none %}
+                    <div class="result">
+                        <h2>Result of your calculation</h2>
+                        <p>{{ value }} {{ unit_from }} = {{ result }} {{ unit_to }}</p>
+                        <a href="/" class="reset-button">Reset</a>
+                    </div>
+                {% endif %}
             {% endif %}
+           
+
         </div>
     </div>
 </body>

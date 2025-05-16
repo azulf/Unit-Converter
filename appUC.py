@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from Converter import Converter
 
 app = Flask(__name__)
 
@@ -6,73 +7,52 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/convert', methods=['POST'])
-def convert():
-    # Ambil input dari form
-    value = request.form.get('value')
-    unit = request.form.get('unit')
-    
-    # Lakukan konversi sederhana (contoh: meter ke kilometer)
-    if unit == 'meter':
-        result = float(value) / 1000
-        converted_unit = 'kilometer'
-    else:
-        result = 'Invalid unit'
-        converted_unit = ''
-    
-    # Kirim hasil ke template
-    return render_template('index.html', result=result, converted_unit=converted_unit)
-
-@app.route('/Length', methods=['POST'])
+@app.route('/Length', methods=['GET','POST'])
 def length():
-    # Ambil input dari form
-    value = request.form.get('value')
-    unit = request.form.get('unit')
+    if request.method == 'GET':
+        return render_template('index.html', active_form='Length')
+    elif request.method == 'POST':
+        value = request.form.get('value')
+        unit = request.form.get('unit_from')
+        unit_to = request.form.get('unit_to')
+        
+        result = Converter.convert_length(value, unit, unit_to)
+        converted_unit = unit_to
     
-    # Lakukan konversi panjang sederhana (contoh: meter ke kilometer)
-    if unit == 'meter':
-        result = float(value) / 1000
-        converted_unit = 'kilometer'
-    else:
-        result = 'Invalid unit'
-        converted_unit = ''
-    
-    # Kirim hasil ke template
-    return render_template('index.html', result=result, converted_unit=converted_unit)
+        # Kirim hasil ke template
+        return render_template('index.html', result=result, converted_unit=converted_unit, active_form='Length')
 
-@app.route('/Weight', methods=['POST'])
+
+@app.route('/Weight', methods=['GET','POST'])
 def weight():   
-    # Ambil input dari form
-    value = request.form.get('value')
-    unit = request.form.get('unit')
-    
-    # Lakukan konversi berat sederhana (contoh: gram ke kilogram)
-    if unit == 'gram':
-        result = float(value) / 1000
-        converted_unit = 'kilogram'
-    else:
-        result = 'Invalid unit'
-        converted_unit = ''
-    
-    # Kirim hasil ke template
-    return render_template('index.html', result=result, converted_unit=converted_unit)
+    if request.method == 'GET':
+        return render_template('index.html', active_form='Weight')
+    elif request.method == 'POST':
+        value = request.form.get('value')
+        unit = request.form.get('unit_from')
+        unit_to = request.form.get('unit_to')
+        
+        result = Converter.convert_weight(value, unit, unit_to)
+        converted_unit = unit_to
+        
+        # Kirim hasil ke template
+        return render_template('index.html', result=result, converted_unit=converted_unit, active_form='Weight')
 
-@app.route('/Temperature', methods=['POST'])
+@app.route('/Temperature', methods=['GET','POST'])
 def temperature():
-    # Ambil input dari form
-    value = request.form.get('value')
-    unit = request.form.get('unit')
-    
-    # Lakukan konversi suhu sederhana (contoh: Celsius ke Fahrenheit)
-    if unit == 'Celsius':
-        result = (float(value) * 9/5) + 32
-        converted_unit = 'Fahrenheit'
-    else:
-        result = 'Invalid unit'
-        converted_unit = ''
-    
-    # Kirim hasil ke template
-    return render_template('index.html', result=result, converted_unit=converted_unit)
+    if request.method == 'GET':
+        return render_template('index.html', active_form='Temperature')
+    elif request.method == 'POST':
+        value = request.form.get('value')
+        unit = request.form.get('unit_from')
+        unit_to = request.form.get('unit_to')
+        
+        result = Converter.convert_temperature(value, unit, unit_to)
+        converted_unit = unit_to
+        
+        # Kirim hasil ke template
+        return render_template('index.html', result=result, converted_unit=converted_unit, active_form='Temperature')
+
 
 
 if __name__ == '__main__':
